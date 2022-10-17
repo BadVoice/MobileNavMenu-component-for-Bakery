@@ -61,6 +61,8 @@
                         
                         </button>
                     </div>
+
+                    
                     
                 </li>
             </ul>
@@ -71,18 +73,49 @@
                 class="px-6 pt-4">
                 <transition  :duration="550" name="nested">
                     <ul  v-if="openAccordion"
-                    class="  
-                        flex flex-col space-y-2 items-center ">
-                        
-                                <li class="p-2 text-xs inner
-                            hover:text-white duration-300 hover:bg-[#E1CEAC] items-center rounded "
-                            v-for='cake in categories.CailcutShop.cakes' :key='cake'> 
-                                <RouterLink  class="w-full"
+                    class=" flex flex-col space-y-2 items-center w-full">
+
+                        <li class=" text-xs inner flex
+                            text-white duration-300 bg-[#E1CEAC] items-center rounded w-full"
+                            v-for='cake in categories.CailcutShop.categories.cakes.title' :key='cake'> 
+                                <RouterLink  class="w-full p-2"
                                 :to="`/:${cake}`" >{{cake}}</RouterLink>
+                                <button 
+                                @click.prevent="openCakes = !openCakes"
+                                class=" flex items-center p-1 text-white">
+                                        <svg 
+                                        v-if="!openCakes"
+                                        class="w-5 h-5 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                        </svg>
+        
+                                        <svg   v-if="openCakes"
+                                        class="inner w-5 h-5 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                                        </svg>
+                                </button>
                             </li>
-                    
+                            
                     </ul>
                 </transition>
+            </div>
+
+
+            <div 
+                class="px-6 pt-4">
+                <transition  :duration="550" name="nested">
+                    <ul v-if="openCakes"
+                    class=" flex flex-col space-y-2 items-center w-full">
+                        
+                        <li class=" text-xs inner flex
+                            text-white duration-300 bg-gray-500 items-center rounded w-full"
+                            v-for='cake in categories.CailcutShop.categories.cakes.items' :key='cake'> 
+                                <RouterLink  class="w-full p-2"
+                                :to="`/:${cake}`" >{{cake}}</RouterLink>
+                        </li>
+                    </ul>
+                </transition>
+                
             </div>
 
             
@@ -97,29 +130,41 @@
     import MovileBtn from '../MobileBtn/MovileBtn.vue'
 
     const openAccordion = ref(false)
+    const openCakes = ref(false)
 
     const categories = reactive({
-
-        'CailcutShop': {
+        CailcutShop: {
             name: 'CailcutShop',
+            
+            categories:{
 
-            cakes:['Brownie Au Chocolo',
-            'Hazel Nut',
-            'Triple Chocolate',
-            'Classic Cheese',
-            'Strawberry Cheese',
-            'Pista berry',
-            'Opera',
-            'Tiramisu',
-            'Fruit Cake',
-            'Signature Black Forest',
-            'Red Velvet',
-            'Carrot Cheese',
-            'Honey Medovik',
-            'Chocladen',
-            'View All Cakes'
-        ] 
-        }
+                cakes: {
+                    items: [
+                    'Brownie Au Chocolo',
+                    'Hazel Nut',
+                    'Triple Chocolate',
+                    'Classic Cheese',
+                    'Strawberry Cheese',
+                    'Pista berry',
+                    'Opera',
+                    'Tiramisu',
+                    'Fruit Cake',
+                    'Signature Black Forest',
+                    'Red Velvet',
+                    'Carrot Cheese',
+                    'Honey Medovik',
+                    'Chocladen',
+                    'View All Cakes',
+                    ],
+
+                    title: ['Cakes']
+                    
+                }
+                
+
+            }
+        
+    }
     })
 
 
