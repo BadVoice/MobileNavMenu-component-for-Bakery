@@ -1,6 +1,6 @@
 <template>
     <div class="navMenu container  max-w-m w-[100%] h-[100vh] bg-white
-     overflow-y-scroll bg-gray-900 
+     overflow-y-scroll bg-gray-100 
 
     ">
 
@@ -41,8 +41,8 @@
                                   </svg>
                                   
                             </div>
-                            <RouterLink to="/" class=" inline-block w-full py-2 pl-2 pr-2 text-xs rounded hover:bg-[#E1CEAC] focus:outline-none focus:bg-[#E1CEAC] focus:bg-[#E1CEAC] focus:bg-[#E1CEAC]" href="">
-                                Cailcut Shop
+                            <RouterLink to="/" class="text-white inline-block w-full py-2 pl-2 pr-2 text-xs rounded hover:bg-[#E1CEAC] focus:outline-none focus:bg-[#E1CEAC] focus:bg-[#E1CEAC] focus:bg-[#E1CEAC]" href="">
+                               {{categories.CailcutShop.name}}
                             </RouterLink>
                         </div> 
                         <button class=" flex items-center p-1 text-white">
@@ -56,45 +56,53 @@
                 </li>
             </ul>
         </div>
-        
-            
-        
-        
+
+        <div 
+        class="px-6 pt-4">
+            <ul  
+            class="flex flex-col space-y-2 items-center">
+                <li class=""
+                v-for='cake in categories.CailcutShop.cakes' :key='cake'> 
+                    <RouterLink  :to="`/:${cake}`" >{{cake}}</RouterLink>
+                </li>
+            </ul>
+        </div>
 
     </div>
 </template>
 
 <script setup>
-import { reactive } from "@vue/reactivity";
+    import { reactive, toRefs, ref } from "@vue/reactivity";
 
-import MovileBtn from '../MobileBtn/MovileBtn.vue'
+    import MovileBtn from '../MobileBtn/MovileBtn.vue'
 
-    const rangeProducts = reactive({
-        'Cakes': {
+    const categories = reactive({
 
-        }, 
-        'Pastries': {
-
-        },
-        'Bakery': {
-            
-        },
-        'Gift Ideas': {
-            
-        },
-        'Events': {
-            
-        },
-        'Seasonal': {
-            
-        },
-        'Buffer': {
-            
-        }, 
-        'Contact': {
-            
+        'CailcutShop': 
+            {
+            name: 'CailcutShop',
+            cakes:['Brownie Au Chocolo',
+            'Hazel Nut',
+            'Triple Chocolate',
+            'Classic Cheese',
+            'Strawberry Cheese',
+            'Pista berry',
+            'Opera',
+            'Tiramisu',
+            'Fruit Cake',
+            'Signature Black Forest',
+            'Red Velvet',
+            'Carrot Cheese',
+            'Honey Medovik',
+            'Chocladen',
+            'View All Cakes'
+        ] 
         }
     })
+
+
+        
+    
 </script>
 
 <style lang="css" scoped>

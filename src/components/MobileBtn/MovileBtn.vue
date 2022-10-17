@@ -3,6 +3,7 @@
         :class="{ active: isActive }"
                     @click.prevent="toggleModal"
 
+                    
                     class="toggle ">
                         
                     <span></span>
