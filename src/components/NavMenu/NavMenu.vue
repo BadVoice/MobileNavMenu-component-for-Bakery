@@ -1,6 +1,6 @@
 <template>
     <div class="navMenu container  max-w-m w-[100%] h-[100vh] bg-white
-     overflow-y-scroll bg-gray-100 
+     overflow-scroll bg-gray-100 
 
     ">
 
@@ -100,10 +100,10 @@
                 </transition>
             </div>
 
-
-            <div 
+            <transition  :duration="550" name="nested">
+            <div v-if="openAccordion == openCakes"
                 class="px-6 pt-4">
-                <transition  :duration="550" name="nested">
+               
                     <ul v-if="openCakes"
                     class=" flex flex-col space-y-2 items-center w-full">
                         
@@ -114,10 +114,10 @@
                                 :to="`/:${cake}`" >{{cake}}</RouterLink>
                         </li>
                     </ul>
-                </transition>
+               
                 
             </div>
-
+        </transition>
             
         
 
