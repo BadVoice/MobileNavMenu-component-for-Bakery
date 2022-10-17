@@ -31,9 +31,9 @@
         </div>  
 
         <div class="px-6 pt-4 ">
-            <ul class="flex flex-col space-y-2">
+            <ul class="flex flex-col space-y-2 ">
                 <li class="">
-                    <div class="relative flex justify-between text-black bg-[#E1CEAC] rounded">
+                    <div class="relative flex justify-between text-black bg-[#E1CEAC] hover:bg-[#c4b393] duration-500   rounded">
                         <div class="flex items-center w-full">
                             <div class="pr-0.5 inset-y-0 left-0 flex items-center pl-2 pointer-events-none text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -41,15 +41,24 @@
                                   </svg>
                                   
                             </div>
-                            <RouterLink to="/" class="text-white inline-block w-full py-2 pl-2 pr-2 text-xs rounded hover:bg-[#E1CEAC] focus:outline-none focus:bg-[#E1CEAC] focus:bg-[#E1CEAC] focus:bg-[#E1CEAC]" href="">
+                            <RouterLink to="/" class="text-white inline-block w-full py-2 pl-2 pr-2 text-xs duration-300 hover:bg-[#E1CEAC] focus:outline-none focus:bg-[#E1CEAC] focus:bg-[#E1CEAC] focus:bg-[#E1CEAC]" href="">
                                {{categories.CailcutShop.name}}
                             </RouterLink>
                         </div> 
-                        <button class=" flex items-center p-1 text-white">
-                            <svg class="w-5 h-5 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                              </svg>
-                              
+                        <button 
+                        @click.prevent="openAccordion = !openAccordion"
+                        class=" flex items-center p-1 text-white">
+                                <svg 
+                                v-if="!openAccordion"
+                                class="w-5 h-5 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+
+                                <svg   v-if="openAccordion"
+                                class="inner w-5 h-5 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                                </svg>
+                        
                         </button>
                     </div>
                     
@@ -57,16 +66,27 @@
             </ul>
         </div>
 
-        <div 
-        class="px-6 pt-4">
-            <ul  
-            class="flex flex-col space-y-2 items-center">
-                <li class=""
-                v-for='cake in categories.CailcutShop.cakes' :key='cake'> 
-                    <RouterLink  :to="`/:${cake}`" >{{cake}}</RouterLink>
-                </li>
-            </ul>
-        </div>
+       
+            <div 
+                class="px-6 pt-4">
+                <transition  :duration="550" name="nested">
+                    <ul  v-if="openAccordion"
+                    class="  
+                        flex flex-col space-y-2 items-center ">
+                        
+                                <li class="p-2 text-xs inner
+                            hover:text-white duration-300 hover:bg-[#E1CEAC] items-center rounded "
+                            v-for='cake in categories.CailcutShop.cakes' :key='cake'> 
+                                <RouterLink  class="w-full"
+                                :to="`/:${cake}`" >{{cake}}</RouterLink>
+                            </li>
+                    
+                    </ul>
+                </transition>
+            </div>
+
+            
+        
 
     </div>
 </template>
@@ -76,11 +96,13 @@
 
     import MovileBtn from '../MobileBtn/MovileBtn.vue'
 
+    const openAccordion = ref(false)
+
     const categories = reactive({
 
-        'CailcutShop': 
-            {
+        'CailcutShop': {
             name: 'CailcutShop',
+
             cakes:['Brownie Au Chocolo',
             'Hazel Nut',
             'Triple Chocolate',
@@ -106,5 +128,18 @@
 </script>
 
 <style lang="css" scoped>
+.nested-enter-active .inner,
+.nested-leave-active .inner {
+  transition: all 0.3s ease-in-out;
+}
 
+.nested-enter-from .inner,
+.nested-leave-to .inner {
+  transform: translateY(-30px);
+  opacity: 0;
+}
+
+.nested-enter-active .inner {
+    transition-delay: 0.25s;
+  }
 </style>
